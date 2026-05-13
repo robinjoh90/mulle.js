@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="sv">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>mulle.js demo</title>
+	<style>
+		body { margin: 0; font: 16px/1.5 system-ui, sans-serif; background: #10121a; color: #f3f4f8; }
+		main { max-width: 960px; margin: 0 auto; padding: 32px 20px; }
+		a { color: #9bd2ff; }
+		.card { background: #1b1f2f; border: 1px solid #343b56; border-radius: 12px; padding: 20px; margin: 18px 0; }
+		.actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 20px 0; }
+		.button { display: inline-block; border-radius: 8px; padding: 10px 14px; background: #4568dc; color: white; text-decoration: none; font-weight: 700; }
+		.button.secondary { background: #30364d; }
+		.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+		.stat { background: #111522; border-radius: 8px; padding: 14px; }
+		.stat strong { display: block; font-size: 32px; }
+		code { background: #0b0d13; border-radius: 4px; padding: 2px 5px; }
+		ul { padding-left: 22px; }
+	</style>
+</head>
+<body>
+	<main>
+		<h1>mulle.js demo</h1>
+		<p>Det här är en lokal demosida som följer med bygget. Den visar att distributionen, datafilerna och den statiska servern fungerar även om de ursprungliga ljud- och bildresurserna inte finns incheckade i repot.</p>
+
+		<div class="actions">
+			<a class="button" href="../">Starta spelet</a>
+			<a class="button secondary" href="../?multiplayer=1">Starta med multiplayer</a>
+		</div>
+
+		<section class="card">
+			<h2>Databasstatus</h2>
+			<div id="stats" class="grid" aria-live="polite">Laddar JSON-data…</div>
+		</section>
+
+		<section class="card">
+			<h2>Så provar du</h2>
+			<ul>
+				<li>Kör <code>npm install</code> första gången.</li>
+				<li>Kör <code>npm run demo</code> och öppna adressen som skrivs ut.</li>
+				<li>Spelet kör offline som standard. Lägg till <code>?multiplayer=1</code> för att ansluta till websocket-servern.</li>
+				<li>Full spelupplevelse kräver exporterade <code>assets/*.json</code>, atlasbilder, ljud och <code>ui/</code>-pekare från originalresurserna.</li>
+			</ul>
+		</section>
+	</main>
+
+	<script>
+		const datasets = [
+			['Kartor', '../data/maps.hash.json'],
+			['Uppdrag', '../data/missions.hash.json'],
+			['Objekt', '../data/objects.hash.json'],
+			['Bildelar', '../data/parts.hash.json'],
+			['Världar', '../data/worlds.hash.json']
+		];
+
+		Promise.all(datasets.map(([label, url]) => fetch(url).then((response) => {
+			if (!response.ok) throw new Error(`${url}: ${response.status}`);
+			return response.json().then((json) => [label, Object.keys(json).length]);
+		}))).then((rows) => {
+			document.getElementById('stats').innerHTML = rows.map(([label, count]) => (
+				`<div class="stat"><strong>${count}</strong>${label}</div>`
+			)).join('');
+		}).catch((error) => {
+			document.getElementById('stats').textContent = `Kunde inte läsa data: ${error.message}`;
+		});
+	</script>
+</body>
+</html>

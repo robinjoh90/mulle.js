@@ -33,7 +33,7 @@ class MulleNet {
 			this.socket = null;
 		});
 
-		this.socket.addEventListener('message', (msg) => {
+		this.socket.addEventListener('message', (event) => {
 
 			var msg = JSON.parse( event.data );
 
@@ -50,6 +50,8 @@ class MulleNet {
 	}
 
 	disconnect(){
+
+		if(!this.socket) return false;
 
 		this.socket.close();
 

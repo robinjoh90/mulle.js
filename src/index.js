@@ -85,7 +85,10 @@ Phaser.AnimationParser.JSONDataHash = function (game, json) {
 
 window.addEventListener("beforeunload", function(e){
 	console.debug('Unload shutdown');
-	game.state.states[game.state.current].shutdown();
+	var state = game.state.states[game.state.current];
+	if(state && state.shutdown){
+		state.shutdown();
+	}
 });
 
 window.game = game;
