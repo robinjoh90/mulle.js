@@ -80,7 +80,7 @@ class MulleGame extends Phaser.Game {
 		this.mulle.debug = false;
 		this.mulle.cheats = true;
 
-		this.mulle.networkEnabled = true;
+		this.mulle.networkEnabled = /[?&]multiplayer(?:=1|=true)?(?:&|$)/.test(window.location.search);
 
 		this.mulle.networkServer		= 'mulle.dongers.net:8765';
 		this.mulle.networkDevServer	= 'localhost:8765';
@@ -104,7 +104,7 @@ class MulleGame extends Phaser.Game {
 
 			"86": "solhem",
 			"87": "saftfabrik",
-			"86": "sturestortand",
+			"88": "sturestortand",
 			"89": "viola",
 			"90": "dorisdigital",
 			"91": "luddelabb",

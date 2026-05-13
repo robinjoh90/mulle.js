@@ -1,12 +1,14 @@
 {
 	"name": "mulle",
 	"version": "3.0.8",
-	"description": "",
-	"main": "index.js",
+	"description": "A Phaser CE port of Mulle Meck game data and scenes.",
+	"main": "src/index.js",
 	"scripts": {
-		"build": "gulp",
-		"start": "webpack-dev-server --config webpack.dev.js",
-		"start-prod": "webpack-dev-server --config webpack.prod.js",
+		"build": "node scripts/build.js",
+		"build:dev": "node scripts/build.js --mode development",
+		"build:prod": "node scripts/build.js --mode production",
+		"demo": "npm run build:dev && node scripts/serve.js dist 8080",
+		"serve": "node scripts/serve.js dist 8080",
 		"server": "node server/server.js"
 	},
 	"repository": {
@@ -17,27 +19,23 @@
 	"license": "ISC",
 	"homepage": "https://bitbucket.org/MrBrax/mulle.js#readme",
 	"devDependencies": {
-		"babel-core": "^6.26.0",
-		"babel-loader": "^7.1.2",
-		"babel-preset-env": "^1.6.0",
-		"expose-loader": "^0.7.3",
-		"gulp": "^3.9.1",
-		"gulp-exec": "^2.1.3",
-		"gulp-sass": "^3.1.0",
-		"gulp-webpack": "^1.5.0",
+		"babel-core": "^6.26.3",
+		"babel-loader": "^7.1.5",
+		"babel-preset-env": "^1.7.0",
+		"expose-loader": "^0.7.5",
 		"phaser-ce": "^2.9.1",
-		"readline": "^1.3.0",
 		"uglifyjs-webpack-plugin": "^0.4.6",
-		"webpack": "^3.7.0",
-		"webpack-merge": "^4.1.0",
-		"webpack-stream": "^4.0.0",
-		"ws": "^3.2.0"
+		"webpack": "^3.12.0",
+		"webpack-merge": "^4.2.2"
 	},
 	"dependencies": {
 		"colors": "^1.1.2",
-		"gulp-grunt": "^0.5.5",
 		"maxrects-packer": "^1.2.0",
 		"moment": "^2.20.1",
-		"webpack-dev-server": "^2.9.1"
+		"readline": "^1.3.0",
+		"ws": "^3.2.0"
+	},
+	"engines": {
+		"node": ">=18"
 	}
 }

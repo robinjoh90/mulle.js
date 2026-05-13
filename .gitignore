@@ -6,3 +6,5 @@ audiosprite/__pycache__/
 docs/
 mulle.sublime-workspace
 mulle.sublime-project
+
+.build-assets.tmp/

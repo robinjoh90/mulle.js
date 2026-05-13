@@ -32,7 +32,7 @@ class LoadState extends Phaser.State {
 		this.game.load.onLoadComplete.add(this.loadComplete, this);
 
 
-		this.progress = game.add.graphics(0, 0);
+		this.progress = this.game.add.graphics(0, 0);
 		this.loadImage = this.game.add.sprite(320-(235/2), 240-(189/2), 'loading');
 
 	}
